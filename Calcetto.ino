@@ -2,47 +2,37 @@
 #include <ESP8266WiFi.h>
 #include <ESP8266HTTPClient.h>
 #include <WiFiClient.h>
+#include "Settings.h"
 
-//PIN
-#define MUXSelect 1
-struct Sensor{
-  int threshold;
-  bool stat;
-  bool isAvailable;
-};
-struct Sensor Sensors;
-int nReq;
-bool currentSensor;
 
 
 void setup() {
+  pinMode(AnalogSEL,OUTPUT);
+
   Serial.begin(115200);
   WiFi.mode(WIFI_STA);
   WiFi.begin("SSID", "Password");
-  while (WiFi.status() != WL_CONNECTED) {
+  while (WiFi.status() != WL_CONNECTED &&0) {
     delay(500);
   }
+  Sensors[0].ReqURL="";
+  Sensors[1].ReqURL="";
+  Sensors[0].threshold=500;
+  Sensors[1].threshold=500;
 }
 
 
 void loop() {
   nReq = 10;
 
-checkSensors();
+checkSensors(0);
 
   WiFiClient client;
-
   HTTPClient http;
-
   while (http.begin(client, "req link") && nReq > 0) {
     nReq--;
   }
-
-}
-
-void checkSensors(){
-  pinMode(MUXSelect,currentSensor?1:0);
-  delay(0);
-  Sensors[currentSensor].stat=analogRead(A0)>Sensors[currentSensor].treshold;
   
+currentAnalogSensor=!currentAnalogSensor;
+
 }
