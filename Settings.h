@@ -9,7 +9,7 @@
 
 
 struct Sensor{
-  long int threshold=1200;
+  long int threshold=1023;
   bool stat;
   bool prevStat;
   bool isAvailable;

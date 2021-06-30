@@ -15,24 +15,28 @@ void setup() {
   while (WiFi.status() != WL_CONNECTED &&0) {
     delay(500);
   }
-  Sensors[0].ReqURL="";
-  Sensors[1].ReqURL="";
-  Sensors[0].threshold=500;
-  Sensors[1].threshold=500;
+
+
 }
 
 
 void loop() {
   nReq = 10;
 
-checkSensors(0);
+checkSensors(currentAnalogSensor);
+checkStat(currentAnalogSensor);
 
   WiFiClient client;
   HTTPClient http;
   while (http.begin(client, "req link") && nReq > 0) {
     nReq--;
   }
-  
+
 currentAnalogSensor=!currentAnalogSensor;
 
+Serial.print("punti A: ");
+Serial.print(Sensors[0].score);
+Serial.print("  punti B: ");
+Serial.print(Sensors[1].score);
+Serial.println();
 }
