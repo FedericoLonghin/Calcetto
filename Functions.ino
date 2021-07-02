@@ -8,7 +8,9 @@ void checkSensors(bool Sens){
 }
 
 void checkStat(bool Sens){
-if(!Sensors[Sens].prevStat && Sensors[Sens].stat)
+if(!Sensors[Sens].prevStat && Sensors[Sens].stat){
+
 Sensors[Sens].score++;
 requestNewScore(Sens);
+}
 }

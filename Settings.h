@@ -21,3 +21,4 @@ struct Sensor Sensors[2];
 int nReq;
 bool currentAnalogSensor;
 
+int mod=0;
